@@ -15,10 +15,15 @@ module delay #(
             assign o_data = i_data;
             
         end else if(DELAY == 1) begin : ff_delay_1
+            logic signed [DATA_WIDTH-1:0] del = '0;
         
             always_ff @(posedge clk) begin : ff_delay
-                o_data <= i_data;
+                if (en) begin
+                    del <= i_data;
+                end
             end
+            
+            assign o_data = del;
             
         end else if(DELAY == 2) begin : ff_delay_2
             
